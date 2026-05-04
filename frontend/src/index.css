@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --color-jana-purple: #ada2cc;
+  --color-jana-turquoise: #9fd7d5;
+  --color-jana-coral: #f89083;
+  --color-jana-coral-dark: #e76e50;
+  --font-family-sans: 'DM Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background-color: #f9f9fb;
+  color: #1a1a2e;
+  -webkit-font-smoothing: antialiased;
+}
+
+textarea, input, button {
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
