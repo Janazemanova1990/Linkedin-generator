@@ -255,13 +255,17 @@ app.post('/api/posts/:id/finalize', async (req, res) => {
   }
 });
 
-app.listen(PORT, async () => {
-  console.log(`Backend running on http://localhost:${PORT}`);
-  if (process.env.NOTION_API_KEY && process.env.NOTION_DATABASE_ID) {
-    try {
-      await testConnection();
-    } catch (err) {
-      console.warn('Notion connection test failed:', err.message);
+if (!process.env.VERCEL) {
+  app.listen(PORT, async () => {
+    console.log(`Backend running on http://localhost:${PORT}`);
+    if (process.env.NOTION_API_KEY && process.env.NOTION_DATABASE_ID) {
+      try {
+        await testConnection();
+      } catch (err) {
+        console.warn('Notion connection test failed:', err.message);
+      }
     }
-  }
-});
+  });
+}
+
+export default app;
