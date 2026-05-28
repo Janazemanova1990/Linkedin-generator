@@ -1,6 +1,6 @@
 # Jana's LinkedIn Voice Profile
-## Last updated: 2026-05-04
-## Status: Baseline (will evolve through use)
+## Last updated: 2026-05-28
+## Status: Refined after first batch of posts
 
 ---
 
@@ -26,6 +26,12 @@ I reach for screenshots, specifics, and named tools (Claude, n8n, Notion, Hostin
 **Warm but direct.**
 I don't soften everything with caveats, and I don't perform expertise either. I'm encouraging without being saccharine. When I give advice, it lands as "here's what worked for me" rather than "here's the 5-step framework." I don't pretend to have it figured out.
 
+**Dry, self-deprecating humor.**
+This is a real part of how I write and I shouldn't lose it. Little asides that mock myself: "Upss..", "Will I frame it? Maybe.", "completely useless, completely made my day", "five courses. Upss." It's understated, not joke-telling. The humor usually lands on me overdoing something (5 courses instead of 1) or on the absurdity of a small win. Keep it light and don't force it - when it shows up naturally, let it stay.
+
+**I show my non-technical starting point on purpose.**
+I regularly flag that I'm not a developer: "(built with Claude Code, I'm not a developer)", "no backend, no code", "I vibe coded the whole site". This is deliberate positioning, not modesty. It tells non-technical women watching that the thing I built is within their reach too. This framing should stay - it's part of why my build-in-public posts land with my audience.
+
 **I am NOT:**
 - A motivational speaker
 - A LinkedIn growth hacker performing thought leadership
@@ -44,6 +50,8 @@ Like that. ↑
 I use whitespace deliberately. I don't write paragraphs that look like Wikipedia. Each line should feel intentional.
 
 When I do write longer sentences, they have rhythm - they're conversational, like I'm talking to one specific person, not "everyone."
+
+**Unpolished is a style choice, not an excuse for errors.** The rough, conversational rhythm is deliberate. Actual typos and mangled phrases are not. Past posts have slipped through with things like "take me time of building" or a tool name spelled wrong. Keep the voice loose, but fix genuine mistakes - misspelled tool/product names, broken grammar, half-finished phrases. Rough rhythm yes, sloppy errors no.
 
 ---
 
@@ -69,7 +77,7 @@ When I do write longer sentences, they have rhythm - they're conversational, lik
 ## How I Close Posts
 
 **Good closers:**
-- A genuine question (not "drop your thoughts below")
+- A genuine question (not "drop your thoughts below"). In practice this is my default - most posts end on a real, specific question I'm actually curious about ("Where are you learning about AI right now? Not the famous accounts.", "What's on your 'not doing' list this year?"). They work because they're specific and genuinely curious, not because they're a CTA. The test: would I actually want to read the replies? If yes, it's a real question, not a growth-hack prompt.
 - A specific reflection or takeaway
 - An invitation to connect on something concrete
 - Sometimes just... ending. No fake CTA.
@@ -197,14 +205,48 @@ The app should prompt me to pick before generating the full post.
 
 > Jana: As you write posts, mark the ones that *really* sound like you, and we'll add them here as voice examples.
 
-### Example 1 (placeholder)
-[After your first 2-3 posts, paste the one that felt most "you" here]
+### Example 1 - The certificate post (humor + non-developer framing + build-in-public)
+Marked because: dry self-deprecating humor throughout, the "one course turned into five" overdoing-it joke, genuine learning under the silliness, and a closing reflection rather than a CTA.
 
-### Example 2 (placeholder)
-[Add another voice-true example]
+I learned Claude will absolutely issue you a certificate with Anthropic brand colours if you ask nicely. Asked Claude to build me a course for vibecoding to fill my gaps, ended up with five. Upss..
+
+Here's how it started: I knew that I can build webs, apps but... I wanted a real structure and understanding of more technical stuff- Github, Git, deployments etc. So I asked Claude to design me a proper course. Modules, exercises, the whole thing.
+
+One course turned into two. Two into three. By the time I noticed, I had five courses. Git and GitHub basics, deployments, debugging with AI, building real projects, then one on integrating with n8n because of course.
+
+I actually went through them. Did the exercises. Built the small projects. It was genuinely good - way more tailored than any YouTube tutorial because Claude knew what I already knew and skipped it.
+
+And then at the end I thought... why not ask for a certificate? So I did. Claude generated one. In Anthropic's brand colours. With my name on it. Completely unofficial, completely useless, completely made my day.
+
+Is it a real certificate? No. Did I learn real things? Yes. Will I frame it? Maybe. 🤔
+
+The lesson here isn't about the certificate. It's that when you stop treating AI like a search engine and start treating it like a teacher who designs around you, the learning gets weirdly personal.
+
+#AI #NextfemAI #Automation
+
+### Example 2 - The meeting-summary automation (build-in-public + non-developer + PM judgment)
+Marked because: real flow with numbered steps, named tools, honest "first version sounded like a corporate robot" moment, the "I'm not a developer" framing, and a closing question that's specific and genuinely curious.
+
+I stopped writing meeting summaries months ago. A Python script watches a folder, picks up the MS Teams transcript, and writes the summary in my voice - all thanks to Claude Code. Love it.
+
+Here's the actual flow:
+1. Meeting ends, I download the MS Teams transcript into a specific folder
+2. Python script (built with Claude Code, I'm not a developer) watches that folder
+3. Transcript lands, script triggers, summary gets written in my tone with my structure
+4. Output is HTML, I copy-paste into email, send
+
+The whole thing took me not even half an hour to build. And honestly, the hardest part wasn't the code. It was teaching it MY voice and structure. The first version sounded like a corporate robot. "Stakeholders aligned on key deliverables and next steps were identified." That's not how I write, and everyone would know.
+
+So I fed it 10 of my old summaries, told Claude what I liked and didn't like, and iterated. Now the output sounds like me writing at 9pm after a long call. Direct, specific, action-focused.
+
+What I learned: AI doesn't replace the PM judgment part. I still read every summary before sending. I still catch things the script missed. But the 30 minutes of writing? Gone.
+
+For PMs reading this - what's the most repetitive thing in your week? That's probably your first automation candidate.
+
+#AI #ProjectManagement #Automation
 
 ### Example 3 (placeholder)
-[Add another]
+[Add another voice-true example after the next batch]
 
 ---
 
@@ -214,3 +256,4 @@ The app should prompt me to pick before generating the full post.
 
 **2026-05-04:** Baseline created. No example posts yet. Will refine after first batch of posts.
 
+**2026-05-28:** Refined after analysing first 6 posts. Added three voice traits that showed up consistently but weren't documented: dry self-deprecating humor, the deliberate "I'm not a developer" positioning, and a note that unpolished rhythm is a choice but typos are not. Updated the closers section - genuine specific questions are the default close, not an occasional option. Filled Example 1 (certificate post) and Example 2 (meeting-summary automation) as voice anchors. Emoji rules left unchanged at Jana's request.
