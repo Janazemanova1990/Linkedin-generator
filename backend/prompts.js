@@ -18,6 +18,10 @@ Rules for all 3 hooks:
 - Avoid EVERY bad opener from her voice profile ("Let me share", "Here are X ways", "I'm excited/thrilled/humbled", TED Talk preamble)
 - No em-dashes (use hyphens), no semicolons
 - No these phrases: "game-changer", "dive in", "journey", "the truth is", "unpopular opinion", "let that sink in", "here's the thing"
+- No AI vocabulary: delve, pivotal, underscore, tapestry, vibrant, testament, intricate, garner, bolstered, meticulous, robust, showcase, foster, enhance, crucially, Additionally (to start)
+- No tacked-on -ing analysis at the end ("...demonstrating the power of X")
+- No "not only X, but also Y" construction
+- No "serves as" / "stands as" - use "is"
 - Must include a concrete detail - a tool name, a number, a specific action, not an abstract concept
 - Sound like a person talking, not a brand posting
 
@@ -66,6 +70,11 @@ The post should:
 - 0-2 emojis MAX, only if they add meaning
 - NO em-dashes, NO semicolons
 - NO corporate jargon (full hate list is in the voice profile)
+- NO AI vocabulary: delve, pivotal, underscore, tapestry, vibrant, testament, intricate, garner, bolstered, meticulous, robust, showcase, foster, enhance, Additionally (to start a sentence)
+- NO tacked-on -ing significance phrases ("...demonstrating the importance of X", "...highlighting how Y")
+- NO "not only X, but also Y" construction
+- NO "serves as" / "stands as" - use "is"
+- NO rule-of-three adjective lists ("fast, reliable, and scalable")
 
 Return ONLY the post text. No preamble, no explanation, no JSON wrapper.`;
 }
