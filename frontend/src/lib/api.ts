@@ -29,8 +29,11 @@ export const api = {
   selectHook: (id: string, selectedHook: string) =>
     post<{ ok: boolean }>(`/posts/${id}/select-hook`, { selectedHook }),
 
-  generatePost: (id: string, length: 'Short' | 'Medium' | 'Long') =>
-    post<{ postText: string }>(`/posts/${id}/generate-post`, { length }),
+  clarify: (id: string, messages: ChatMessage[], idea: string, hook: string) =>
+    post<{ question: string; ready: boolean }>(`/posts/${id}/clarify`, { messages, idea, hook }),
+
+  generatePost: (id: string, length: 'Short' | 'Medium' | 'Long', clarifyingDetails?: string) =>
+    post<{ postText: string }>(`/posts/${id}/generate-post`, { length, clarifyingDetails }),
 
   chatPost: (id: string, messages: ChatMessage[], currentPost: string) =>
     post<{ reply: string; updatedPost: string }>(`/posts/${id}/post/chat`, {

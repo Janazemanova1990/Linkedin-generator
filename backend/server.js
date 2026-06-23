@@ -14,6 +14,7 @@ import {
 import {
   hookSystemPrompt,
   hookChatSystemPrompt,
+  clarifySystemPrompt,
   postSystemPrompt,
   postChatSystemPrompt,
   WORD_RANGES,
@@ -159,10 +160,41 @@ app.post('/api/posts/:id/select-hook', async (req, res) => {
   }
 });
 
+// POST /api/posts/:id/clarify - ask clarifying questions before post generation
+app.post('/api/posts/:id/clarify', async (req, res) => {
+  const { id } = req.params;
+  const { messages, idea, hook } = req.body;
+
+  if (!idea || !hook) {
+    return res.status(400).json({ error: 'idea and hook are required' });
+  }
+
+  try {
+    const voiceProfile = loadVoiceProfile();
+
+    const claudeMessages = messages && messages.length > 0 ? messages : [
+      { role: 'user', content: 'Please ask me your first clarifying question.' },
+    ];
+
+    const response = await anthropic.messages.create({
+      model: 'claude-opus-4-7',
+      max_tokens: 512,
+      system: clarifySystemPrompt(voiceProfile, idea, hook),
+      messages: claudeMessages,
+    });
+
+    const parsed = extractJson(response.content[0].text);
+    res.json({ question: parsed.question, ready: parsed.ready });
+  } catch (err) {
+    console.error('clarify error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // POST /api/posts/:id/generate-post - generate full post
 app.post('/api/posts/:id/generate-post', async (req, res) => {
   const { id } = req.params;
-  const { length } = req.body;
+  const { length, clarifyingDetails } = req.body;
   if (!['Short', 'Medium', 'Long'].includes(length)) {
     return res.status(400).json({ error: 'length must be Short, Medium, or Long' });
   }
@@ -171,6 +203,10 @@ app.post('/api/posts/:id/generate-post', async (req, res) => {
     const voiceProfile = loadVoiceProfile();
     const wordRange = WORD_RANGES[length];
 
+    const detailsLine = clarifyingDetails
+      ? `\nAdditional details from clarification: ${clarifyingDetails}`
+      : '';
+
     const response = await anthropic.messages.create({
       model: 'claude-opus-4-7',
       max_tokens: 2048,
@@ -178,7 +214,7 @@ app.post('/api/posts/:id/generate-post', async (req, res) => {
       messages: [
         {
           role: 'user',
-          content: `Hook: ${post.selectedHook}\nIdea/topic: ${post.idea}\nLength: ${length} (${wordRange} words)`,
+          content: `Hook: ${post.selectedHook}\nIdea/topic: ${post.idea}${detailsLine}\nLength: ${length} (${wordRange} words)`,
         },
       ],
     });
