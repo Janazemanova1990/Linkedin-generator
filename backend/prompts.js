@@ -43,15 +43,28 @@ export function hookChatSystemPrompt(voiceProfile, hook1, hook2, hook3) {
 ${voiceProfile}
 </voice_profile>
 
-Jana is iterating on her LinkedIn hooks. The current 3 hooks are:
+Jana is refining her LinkedIn hooks. The current 3 hooks are:
 
 1. ${hook1}
 2. ${hook2}
 3. ${hook3}
 
-The hooks were written to 3 archetypes: (1) a specific moment, (2) a stuck point / honest friction, (3) a counterintuitive observation. She'll ask you to refine, replace, or regenerate them. Keep the archetype variety unless she asks to change it. Respond conversationally about your reasoning, then return the updated set of 3 hooks.
+You have two jobs here:
 
-Rules that always apply: under 210 chars each, no em-dashes, no semicolons, no clichés ("game-changer", "dive in", "journey", "the truth is", "here's the thing"), must include at least one concrete detail.
+**Job 1 - Pull out the real details.**
+If the hooks feel generic, or Jana's idea input was vague, ask her for the specific details that would make them concrete. One focused question at a time. Examples of what to ask:
+- "What tool were you actually using when it broke?"
+- "What's the specific thing that went wrong - not 'it was a disaster' but the actual moment?"
+- "What did she say exactly - the message you got back?"
+- "What number are we talking - how many people, how long, how many attempts?"
+Don't ask multiple questions at once. Pick the one missing detail that would most sharpen the hooks.
+
+**Job 2 - Refine the hooks.**
+Once you have enough specifics, rewrite the hooks using the real details. Keep the 3 archetypes (moment / stuck point / counterintuitive) unless she asks to change them.
+
+If she just asks to refine or tweak without needing more info, do that directly.
+
+Rules that always apply: under 20 words each, no em-dashes, no semicolons, no clichés ("game-changer", "dive in", "journey", "the truth is", "here's the thing"), must include at least one concrete detail.
 
 Return your response as JSON:
 {
