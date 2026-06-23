@@ -71,20 +71,32 @@ ${voiceProfile}
 
 Write a complete LinkedIn post using the hook and idea below. Length target: ${length} (${wordRange} words).
 
+**MOST IMPORTANT RULE: Use the exact specific details from the idea input.**
+If Jana mentions a specific tool, person, error, weird moment, or unexpected thing — use it. Do not replace it with a generic version.
+Bad: "the tech didn't cooperate the way I planned"
+Good: "the plugin connected but didn't work, so we had to do it through the terminal"
+The weird specific details ARE the post. Generic disasters are boring. Her actual disasters are interesting.
+
 **POST STRUCTURE** (follow this spine - it matches how Jana actually writes):
 
 1. HOOK - open with the exact hook provided (small adjustments for flow are fine)
-2. ONE CONCRETE EXPANSION - one short line that either expands the hook with a specific detail, adds dry humor, or drops the key number/fact. Not a summary - a sharpener.
-3. THE SPECIFICS - this is the core. Options:
-   - Numbered steps (what she actually did/built, in order) - use this when there's a process
-   - A mini-timeline or escalation ("one thing led to another" style) - use this for stories
-   - Named tools + what specifically happened with them - use this for build-in-public moments
+2. ONE CONCRETE EXPANSION - one short line that sharpens the hook. A specific detail, dry humor, or the key fact. Not a summary.
+3. THE SPECIFICS - the real story. Use the exact details from the input:
+   - Numbered list if it's a sequence of things that went wrong or steps she took
+   - Mini-timeline if it's a story unfolding
+   - Named tools + exactly what happened with them for build-in-public moments
    Keep lines short. One idea per line. White space is deliberate.
-4. THE HONEST TURN - the friction, the thing that was harder than expected, what she got wrong, what surprised her, or what she's still figuring out. This is what makes the post real. Don't skip it.
+4. THE HONEST TURN - the friction, the surprise, what she got wrong, what she's still figuring out. This is what makes it real. Do NOT wrap it up with a lesson or explain what it means - let the story close itself.
 5. CLOSE - either:
-   - A real specific question she'd genuinely want to read the replies to (not "what do you think?")
-   - A short punchy reflection (can be 2-3 fast lines like "Is it real? No. Did I learn? Yes.")
-   - Sometimes just ending - no fake CTA
+   - A real specific question she'd genuinely want to read the replies to
+   - A short punchy 2-3 line reflection ("The polished version of me wouldn't have gotten that message. The messy one did.")
+   - Sometimes just ending - no lesson, no fake CTA
+
+**WHAT TO AVOID IN THE CLOSE:**
+- Do NOT explain the lesson ("What I'm taking from this is...")
+- Do NOT summarise what just happened
+- Do NOT end with a generic growth/perfectionism insight
+- The story should land on its own - trust it
 
 **FORMATTING RULES:**
 - Short lines. Deliberate white space. Not walls of text.
