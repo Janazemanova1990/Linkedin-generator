@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { ChatMessage } from '../lib/types';
 import { Button } from './ui/Button';
 import { ChatPanel } from './ChatPanel';
@@ -6,6 +6,10 @@ import { ChatPanel } from './ChatPanel';
 interface Step3Props {
   selectedHook: string;
   length: 'Short' | 'Medium' | 'Long' | null;
+  clarifyMessages: ChatMessage[];
+  clarifyReady: boolean;
+  onClarify: (message: string) => Promise<void>;
+  clarifyLoading: boolean;
   postText: string;
   chatHistory: ChatMessage[];
   onLengthChange: (length: 'Short' | 'Medium' | 'Long') => void;
@@ -34,6 +38,10 @@ function wordCount(text: string) {
 export function Step3_Post({
   selectedHook,
   length,
+  clarifyMessages,
+  clarifyReady,
+  onClarify,
+  clarifyLoading,
   postText,
   chatHistory,
   onLengthChange,
@@ -47,12 +55,45 @@ export function Step3_Post({
   error,
 }: Step3Props) {
   const [finalizing, setFinalizing] = useState(false);
+  const [clarifyInput, setClarifyInput] = useState('');
+  // track whether we already fired the initial clarify call for this length selection
+  const initFiredRef = useRef(false);
+
+  // Auto-trigger first clarify question when length is picked and no messages yet
+  useEffect(() => {
+    if (length && clarifyMessages.length === 0 && !clarifyLoading && !initFiredRef.current) {
+      initFiredRef.current = true;
+      onClarify('__init__');
+    }
+    // Reset the ref if length changes (user picks a different length)
+    if (!length) {
+      initFiredRef.current = false;
+    }
+  }, [length]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleFinalize = async () => {
     setFinalizing(true);
     await onFinalize();
     setFinalizing(false);
   };
+
+  const handleClarifySend = async () => {
+    const msg = clarifyInput.trim();
+    if (!msg || clarifyLoading) return;
+    setClarifyInput('');
+    await onClarify(msg);
+  };
+
+  const handleClarifyKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleClarifySend();
+    }
+  };
+
+  // Generate is enabled once the user has given at least one answer OR clarify is marked ready
+  const userAnswerCount = clarifyMessages.filter((m) => m.role === 'user').length;
+  const canGenerate = length && (clarifyReady || userAnswerCount > 0);
 
   const words = wordCount(postText);
   const chars = postText.length;
@@ -92,32 +133,105 @@ export function Step3_Post({
             </button>
           ))}
         </div>
-
-        {length && !postText && (
-          <div className="mt-4">
-            <Button
-              variant="coral"
-              onClick={onGeneratePost}
-              loading={loading}
-              className="px-6 py-2.5"
-            >
-              Generate Post
-            </Button>
-          </div>
-        )}
-        {length && postText && (
-          <div className="mt-3">
-            <Button
-              variant="outline"
-              onClick={onGeneratePost}
-              loading={loading}
-              className="text-sm"
-            >
-              Regenerate
-            </Button>
-          </div>
-        )}
       </div>
+
+      {/* Clarify chat - shown after length is selected, before post is generated */}
+      {length && (
+        <div className="bg-white border border-gray-200 rounded-xl p-4 space-y-3">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold text-[#9fd7d5] uppercase tracking-wide">Quick question before we generate</span>
+            {clarifyReady && (
+              <span className="text-xs text-green-600 bg-green-50 border border-green-200 rounded-full px-2 py-0.5">Ready</span>
+            )}
+          </div>
+
+          {/* Messages */}
+          <div className="space-y-2 max-h-48 overflow-y-auto">
+            {clarifyMessages.length === 0 && clarifyLoading && (
+              <div className="flex justify-start">
+                <div className="bg-[#f3f1fa] text-[#1a1a2e] text-sm rounded-xl px-3 py-2 max-w-[85%]">
+                  <span className="animate-pulse text-gray-400">Thinking...</span>
+                </div>
+              </div>
+            )}
+            {clarifyMessages.map((msg, i) => (
+              <div
+                key={i}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div
+                  className={`text-sm rounded-xl px-3 py-2 max-w-[85%] ${
+                    msg.role === 'user'
+                      ? 'bg-[#ada2cc] text-white'
+                      : 'bg-[#f3f1fa] text-[#1a1a2e]'
+                  }`}
+                >
+                  {msg.content}
+                </div>
+              </div>
+            ))}
+            {clarifyMessages.length > 0 && clarifyLoading && (
+              <div className="flex justify-start">
+                <div className="bg-[#f3f1fa] text-[#1a1a2e] text-sm rounded-xl px-3 py-2">
+                  <span className="animate-pulse text-gray-400">Thinking...</span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Input */}
+          {!clarifyReady && (
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={clarifyInput}
+                onChange={(e) => setClarifyInput(e.target.value)}
+                onKeyDown={handleClarifyKey}
+                placeholder="Your answer..."
+                disabled={clarifyLoading}
+                className="flex-1 text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:border-[#9fd7d5] transition-colors disabled:opacity-50"
+              />
+              <button
+                onClick={handleClarifySend}
+                disabled={!clarifyInput.trim() || clarifyLoading}
+                className="text-sm px-3 py-2 bg-[#9fd7d5] text-white rounded-lg hover:bg-[#8ecac8] transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+              >
+                Send
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Generate button */}
+      {length && !postText && (
+        <div>
+          <Button
+            variant="coral"
+            onClick={onGeneratePost}
+            loading={loading}
+            disabled={!canGenerate}
+            className="px-6 py-2.5"
+          >
+            Generate Post
+          </Button>
+          {!canGenerate && (
+            <p className="text-xs text-gray-400 mt-2">Answer the question above to unlock generation</p>
+          )}
+        </div>
+      )}
+      {length && postText && (
+        <div className="mt-3">
+          <Button
+            variant="outline"
+            onClick={onGeneratePost}
+            loading={loading}
+            className="text-sm"
+          >
+            Regenerate
+          </Button>
+        </div>
+      )}
 
       {postText && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

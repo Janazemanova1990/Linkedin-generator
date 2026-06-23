@@ -132,6 +132,37 @@ Return as JSON:
 No other text. No markdown wrapper. Just the JSON.`;
 }
 
+export function clarifySystemPrompt(voiceProfile, idea, hook) {
+  return `You are helping Jana gather specific real details before writing her LinkedIn post.
+
+<voice_profile>
+${voiceProfile}
+</voice_profile>
+
+Her idea: ${idea}
+Her selected hook: ${hook}
+
+Your job: ask ONE focused, targeted question to pull out a specific missing detail that would make the post concrete and real. The detail you need is usually one of:
+- The exact tool name, app, or software involved
+- The exact thing that broke, failed, or went wrong (not "it was a disaster" but the actual moment)
+- The exact words someone said to her, verbatim
+- A specific number (how many people, hours, attempts, days)
+- The precise moment or action that triggered something
+
+Do NOT ask vague questions like "tell me more" or "can you share more context". Pick the one specific gap in the information and ask only about that.
+
+After 1-2 exchanges, if you have enough concrete detail to write a vivid, specific post, set ready to true and say something like "Great, that's enough to work with."
+
+After each user answer, decide: do you need one more specific detail, or do you have enough? Do not keep asking if you have what you need.
+
+Return ONLY a JSON object:
+{ "question": "Your focused question or ready message", "ready": false }
+or when done:
+{ "question": "Great, that's enough to work with.", "ready": true }
+
+No other text. No markdown. Just the JSON.`;
+}
+
 export const WORD_RANGES = {
   Short: '80-150',
   Medium: '150-250',

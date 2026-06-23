@@ -17,6 +17,8 @@ const initialState: AppState = {
   hookChatHistory: [],
   selectedHook: null,
   length: null,
+  clarifyMessages: [],
+  clarifyReady: false,
   postText: '',
   postChatHistory: [],
   notionUrl: null,
@@ -32,6 +34,9 @@ function reducer(state: AppState, action: AppAction): AppState {
     case 'SET_HOOK_CHAT': return { ...state, hookChatHistory: action.messages };
     case 'SET_SELECTED_HOOK': return { ...state, selectedHook: action.hook };
     case 'SET_LENGTH': return { ...state, length: action.length };
+    case 'ADD_CLARIFY_MESSAGE': return { ...state, clarifyMessages: [...state.clarifyMessages, action.message] };
+    case 'SET_CLARIFY_READY': return { ...state, clarifyReady: action.ready };
+    case 'RESET_CLARIFY': return { ...state, clarifyMessages: [], clarifyReady: false };
     case 'SET_POST_TEXT': return { ...state, postText: action.postText };
     case 'ADD_POST_CHAT': return { ...state, postChatHistory: [...state.postChatHistory, action.message] };
     case 'SET_POST_CHAT': return { ...state, postChatHistory: action.messages };
@@ -59,6 +64,7 @@ export default function App() {
   const [state, dispatch] = useReducer(reducer, undefined, loadState);
   const [loading, setLoading] = useState(false);
   const [chatLoading, setChatLoading] = useState(false);
+  const [clarifyLoading, setClarifyLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -111,6 +117,7 @@ export default function App() {
     try {
       await api.selectHook(state.postId, hook);
       dispatch({ type: 'SET_SELECTED_HOOK', hook });
+      dispatch({ type: 'RESET_CLARIFY' });
       dispatch({ type: 'SET_STEP', step: 3 });
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Something went wrong';
@@ -120,12 +127,52 @@ export default function App() {
     }
   };
 
+  const handleClarify = async (userMessage: string) => {
+    if (clarifyLoading || !state.postId || !state.selectedHook) return;
+    const userMsg = { role: 'user' as const, content: userMessage };
+    // For the initial trigger we don't show a user bubble, but we still need to send it
+    const isInitial = userMessage === '__init__';
+    if (!isInitial) {
+      dispatch({ type: 'ADD_CLARIFY_MESSAGE', message: userMsg });
+    }
+    setClarifyLoading(true);
+    try {
+      const allMessages = isInitial
+        ? []
+        : [...state.clarifyMessages, userMsg];
+      const { question, ready } = await api.clarify(
+        state.postId,
+        allMessages,
+        state.idea,
+        state.selectedHook,
+      );
+      dispatch({ type: 'ADD_CLARIFY_MESSAGE', message: { role: 'assistant', content: question } });
+      if (ready) {
+        dispatch({ type: 'SET_CLARIFY_READY', ready: true });
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Claude returned an unexpected response - try again.';
+      dispatch({ type: 'ADD_CLARIFY_MESSAGE', message: { role: 'assistant', content: `Error: ${msg}` } });
+    } finally {
+      setClarifyLoading(false);
+    }
+  };
+
   const handleGeneratePost = async () => {
     if (loading || !state.postId || !state.length) return;
     clearError();
     setLoading(true);
     try {
-      const { postText } = await api.generatePost(state.postId, state.length);
+      // Collect user answers from the clarify chat
+      const clarifyingDetails = state.clarifyMessages
+        .filter((m) => m.role === 'user')
+        .map((m) => m.content)
+        .join(' | ');
+      const { postText } = await api.generatePost(
+        state.postId,
+        state.length,
+        clarifyingDetails || undefined,
+      );
       dispatch({ type: 'SET_POST_TEXT', postText });
       dispatch({ type: 'SET_POST_CHAT', messages: [] });
     } catch (err) {
@@ -218,6 +265,10 @@ export default function App() {
             <Step3_Post
               selectedHook={state.selectedHook}
               length={state.length}
+              clarifyMessages={state.clarifyMessages}
+              clarifyReady={state.clarifyReady}
+              onClarify={handleClarify}
+              clarifyLoading={clarifyLoading}
               postText={state.postText}
               chatHistory={state.postChatHistory}
               onLengthChange={(length) => dispatch({ type: 'SET_LENGTH', length })}
