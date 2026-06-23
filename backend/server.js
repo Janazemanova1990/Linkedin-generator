@@ -41,7 +41,7 @@ function loadVoiceProfile() {
 }
 
 function extractJson(text) {
-  const cleaned = text.replace(/^```json\s*|\s*```$/g, '').trim();
+  const cleaned = text.replace(/^```(?:json)?\s*|\s*```$/g, '').trim();
   return JSON.parse(cleaned);
 }
 
@@ -173,7 +173,7 @@ app.post('/api/posts/:id/clarify', async (req, res) => {
     const voiceProfile = loadVoiceProfile();
 
     const claudeMessages = messages && messages.length > 0 ? messages : [
-      { role: 'user', content: 'Please ask me your first clarifying question.' },
+      { role: 'user', content: 'Ready.' },
     ];
 
     const response = await anthropic.messages.create({
