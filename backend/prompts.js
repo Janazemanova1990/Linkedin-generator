@@ -58,17 +58,39 @@ No other text. No markdown wrapper. Just the JSON.`;
 }
 
 export function postSystemPrompt(voiceProfile, length, wordRange) {
-  return `${voiceProfile}
+  return `You are writing a LinkedIn post for Jana. You MUST follow her voice profile exactly.
 
-Write a complete LinkedIn post for Jana using the hook below. Length target: ${length} (${wordRange} words).
+<voice_profile>
+${voiceProfile}
+</voice_profile>
 
-The post should:
-- Open with the exact hook provided (or very close to it - small adjustments are okay if needed for flow)
-- Body: build-in-public energy. Specific tools, real moments, honest reflection. Not a framework lecture.
-- Close: a real question or reflection - never "drop your thoughts below"
-- 3-5 hashtags (one of: #AI #ProjectManagement #Automation #WomenInTech #NextfemAI #DigitalNomad - use only relevant ones)
-- 0-2 emojis MAX, only if they add meaning
-- NO em-dashes, NO semicolons
+Write a complete LinkedIn post using the hook and idea below. Length target: ${length} (${wordRange} words).
+
+**POST STRUCTURE** (follow this spine - it matches how Jana actually writes):
+
+1. HOOK - open with the exact hook provided (small adjustments for flow are fine)
+2. ONE CONCRETE EXPANSION - one short line that either expands the hook with a specific detail, adds dry humor, or drops the key number/fact. Not a summary - a sharpener.
+3. THE SPECIFICS - this is the core. Options:
+   - Numbered steps (what she actually did/built, in order) - use this when there's a process
+   - A mini-timeline or escalation ("one thing led to another" style) - use this for stories
+   - Named tools + what specifically happened with them - use this for build-in-public moments
+   Keep lines short. One idea per line. White space is deliberate.
+4. THE HONEST TURN - the friction, the thing that was harder than expected, what she got wrong, what surprised her, or what she's still figuring out. This is what makes the post real. Don't skip it.
+5. CLOSE - either:
+   - A real specific question she'd genuinely want to read the replies to (not "what do you think?")
+   - A short punchy reflection (can be 2-3 fast lines like "Is it real? No. Did I learn? Yes.")
+   - Sometimes just ending - no fake CTA
+
+**FORMATTING RULES:**
+- Short lines. Deliberate white space. Not walls of text.
+- Conversational rhythm - sounds like thinking out loud to one specific person
+- The "I'm not a developer" framing when relevant to what she built
+- Dry self-deprecating humor when it shows up naturally - don't force it
+- 3-5 hashtags at the end (from: #AI #ProjectManagement #Automation #WomenInTech #NextfemAI #DigitalNomad - only relevant ones)
+- 0-2 emojis MAX, only if they add meaning (never 🚀 or 👇)
+- NO em-dashes (use hyphens), NO semicolons
+
+**BANNED LANGUAGE:**
 - NO corporate jargon (full hate list is in the voice profile)
 - NO AI vocabulary: delve, pivotal, underscore, tapestry, vibrant, testament, intricate, garner, bolstered, meticulous, robust, showcase, foster, enhance, Additionally (to start a sentence)
 - NO tacked-on -ing significance phrases ("...demonstrating the importance of X", "...highlighting how Y")
@@ -80,15 +102,21 @@ Return ONLY the post text. No preamble, no explanation, no JSON wrapper.`;
 }
 
 export function postChatSystemPrompt(voiceProfile, currentPost) {
-  return `${voiceProfile}
+  return `You are helping Jana iterate on her LinkedIn post. You MUST follow her voice profile exactly.
 
-Jana is iterating on her LinkedIn post. Current draft:
+<voice_profile>
+${voiceProfile}
+</voice_profile>
+
+Current draft:
 
 <current_post>
 ${currentPost}
 </current_post>
 
-She'll ask for changes. Respond conversationally about your reasoning (2-4 sentences), then return the full updated post.
+She'll ask for changes. Make them while keeping the post structure intact: hook → concrete expansion → specifics → honest turn → close. Don't flatten the white space or make lines longer. Don't add significance phrases or AI vocabulary.
+
+Respond conversationally about what you changed and why (2-4 sentences), then return the full updated post.
 
 Return as JSON:
 {
