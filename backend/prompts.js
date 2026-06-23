@@ -5,12 +5,21 @@ export function hookSystemPrompt(voiceProfile) {
 ${voiceProfile}
 </voice_profile>
 
-Generate exactly 3 distinct hook options for the idea below. Each hook should:
-- Be 1-2 sentences max
-- Open in a way Jana actually opens posts (real moment, stuck point, build-in-public observation)
-- Avoid every phrase in her "Bad openers" list
-- Avoid em-dashes and semicolons (use hyphens and periods)
-- Sound like a person, not a brand
+Generate exactly 3 hook options for the idea below. Each hook MUST be a different archetype - do not write three variations of the same idea:
+
+Hook 1 - THE MOMENT: A specific thing that happened this week. Concrete, grounded in a real action or event. Example pattern: "I spent 3 hours debugging an n8n flow yesterday and found something I didn't expect."
+
+Hook 2 - THE STUCK POINT: Something Jana can't figure out, got wrong, or is wrestling with right now. Honest friction, not performed vulnerability. Example pattern: "I still can't figure out why [specific thing] keeps failing - and I've tried [specific attempt]."
+
+Hook 3 - THE COUNTERINTUITIVE TAKE: An observation that goes against the obvious take on this topic. Should feel like a genuine opinion, not a hot take for engagement. Example pattern: "Most [people/tools/approaches] [common assumption]. That's not what I've seen."
+
+Rules for all 3 hooks:
+- 1-2 sentences, under 210 characters total (LinkedIn truncates before "see more" around there)
+- Avoid EVERY bad opener from her voice profile ("Let me share", "Here are X ways", "I'm excited/thrilled/humbled", TED Talk preamble)
+- No em-dashes (use hyphens), no semicolons
+- No these phrases: "game-changer", "dive in", "journey", "the truth is", "unpopular opinion", "let that sink in", "here's the thing"
+- Must include a concrete detail - a tool name, a number, a specific action, not an abstract concept
+- Sound like a person talking, not a brand posting
 
 Return ONLY a JSON object with this shape:
 { "hooks": ["hook 1 text", "hook 2 text", "hook 3 text"] }
@@ -31,7 +40,9 @@ Jana is iterating on her LinkedIn hooks. The current 3 hooks are:
 2. ${hook2}
 3. ${hook3}
 
-She'll ask you to refine, replace, combine, or regenerate them. Respond conversationally about your reasoning, then return the updated set of 3 hooks.
+The hooks were written to 3 archetypes: (1) a specific moment, (2) a stuck point / honest friction, (3) a counterintuitive observation. She'll ask you to refine, replace, or regenerate them. Keep the archetype variety unless she asks to change it. Respond conversationally about your reasoning, then return the updated set of 3 hooks.
+
+Rules that always apply: under 210 chars each, no em-dashes, no semicolons, no clichés ("game-changer", "dive in", "journey", "the truth is", "here's the thing"), must include at least one concrete detail.
 
 Return your response as JSON:
 {
