@@ -118,6 +118,57 @@ These are an instant fail. Never use:
 
 ---
 
+## AI-Sounding Language to Avoid
+
+These are words and patterns that are statistically overused by AI models. They make posts instantly recognizable as AI-written, even if nothing else gives it away.
+
+**The AI vocabulary list - never use these:**
+- delve / delving
+- pivotal
+- underscore (as a verb - "this underscores...")
+- tapestry (as an abstract metaphor)
+- vibrant
+- testament ("a testament to...")
+- intricate / intricacies
+- garner ("garnered attention")
+- bolstered
+- meticulous / meticulously
+- robust
+- showcase / showcasing
+- foster / fostering
+- enhance / enhancing
+- crucial (use "important" or just say why it matters)
+- Additionally (especially starting a sentence)
+- align with / resonate with
+- landscape (abstract - "the AI landscape")
+- key (as empty adjective - "key takeaways", "key role")
+- valuable insights
+- groundbreaking / renowned
+
+**AI significance phrases - never attach these to things:**
+- "marks a pivotal moment"
+- "represents a significant shift"
+- "is a testament to"
+- "reflects broader trends"
+- "setting the stage for"
+- "contributing to the evolving landscape"
+- "highlights its enduring importance"
+- "underscores its significance"
+
+**AI sentence constructions to avoid:**
+
+*The tacked-on -ing analysis:* AI adds a superficial -ing phrase to the end of sentences to sound insightful. Example: "I built the automation last week, *demonstrating the power of AI tools for PMs.*" Just stop at the fact. Don't explain what it demonstrates.
+
+*"Not only X, but also Y":* "This isn't just about productivity - it's also about identity." Sounds like AI clearing up a misconception you didn't have. Use it only when the contrast is genuinely surprising.
+
+*"Serves as" instead of "is":* AI avoids simple "is/are" and replaces with "serves as", "stands as", "acts as", "represents". Just use "is". "This tool is useful" not "This tool serves as a useful resource."
+
+*Rule of three adjectives/items:* AI loves tripling up - "fast, reliable, and scalable" / "clarity, focus, and purpose." If you find yourself listing three parallel things, check if one of them is padding.
+
+*"Additionally" to start a sentence:* Near-certain AI tell. Use "Also" or restructure.
+
+---
+
 ## Punctuation Rules
 
 **NEVER use the em-dash (—). Use the hyphen (-) instead.**
