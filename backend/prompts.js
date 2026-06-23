@@ -7,22 +7,27 @@ ${voiceProfile}
 
 Generate exactly 3 hook options for the idea below. Each hook MUST be a different archetype - do not write three variations of the same idea:
 
-Hook 1 - THE MOMENT: A specific thing that happened this week. Concrete, grounded in a real action or event. Example pattern: "I spent 3 hours debugging an n8n flow yesterday and found something I didn't expect."
+Hook 1 - THE MOMENT: A specific thing that happened. One concrete action, one concrete result. Drop the reader into it mid-scene.
+Good example: "I pressed the Action button on my iPhone and my thought was in GitHub 4 seconds later."
+Bad example: "I've been building a second brain system using my iPhone's Action button and GitHub..."
 
-Hook 2 - THE STUCK POINT: Something Jana can't figure out, got wrong, or is wrestling with right now. Honest friction, not performed vulnerability. Example pattern: "I still can't figure out why [specific thing] keeps failing - and I've tried [specific attempt]."
+Hook 2 - THE STUCK POINT: Something Jana can't figure out, got wrong, or is genuinely unsure about. Honest friction.
+Good example: "I rebuilt my second brain in GitHub and I'm still not sure it was a good idea."
+Bad example: "I've been questioning whether routing voice notes through GitHub instead of Notion is the right approach..."
 
-Hook 3 - THE COUNTERINTUITIVE TAKE: An observation that goes against the obvious take on this topic. Should feel like a genuine opinion, not a hot take for engagement. Example pattern: "Most [people/tools/approaches] [common assumption]. That's not what I've seen."
+Hook 3 - THE COUNTERINTUITIVE TAKE: One short observation that goes against the obvious. Should feel like a genuine opinion, not a hot take.
+Good example: "Most note apps fail because you have to open them. Mine works because I don't."
+Bad example: "Most people think note-taking is about the app you choose, but actually it's about capture speed..."
 
 Rules for all 3 hooks:
-- 1-2 sentences, under 210 characters total (LinkedIn truncates before "see more" around there)
+- TARGET: 15 words or fewer. Hard max: 20 words. If it's longer, cut it.
+- The hook should NOT explain the idea - it creates a gap that makes you need to read more
+- One sentence, sometimes two very short ones
 - Avoid EVERY bad opener from her voice profile ("Let me share", "Here are X ways", "I'm excited/thrilled/humbled", TED Talk preamble)
 - No em-dashes (use hyphens), no semicolons
-- No these phrases: "game-changer", "dive in", "journey", "the truth is", "unpopular opinion", "let that sink in", "here's the thing"
-- No AI vocabulary: delve, pivotal, underscore, tapestry, vibrant, testament, intricate, garner, bolstered, meticulous, robust, showcase, foster, enhance, crucially, Additionally (to start)
-- No tacked-on -ing analysis at the end ("...demonstrating the power of X")
-- No "not only X, but also Y" construction
-- No "serves as" / "stands as" - use "is"
-- Must include a concrete detail - a tool name, a number, a specific action, not an abstract concept
+- No AI vocabulary: delve, pivotal, underscore, vibrant, testament, intricate, robust, showcase, foster, enhance
+- No filler phrases: "game-changer", "dive in", "journey", "the truth is", "here's the thing", "let that sink in"
+- Must include at least one concrete detail - a tool name, a number, a specific action
 - Sound like a person talking, not a brand posting
 
 Return ONLY a JSON object with this shape:
